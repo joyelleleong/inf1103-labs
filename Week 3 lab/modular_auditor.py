@@ -1,9 +1,13 @@
+inventory = 0
+deliveries = 0 
+failed_entries = 0
+
 def get_valid_input():
     while True:
         stock = input("Enter the stock quantity (or 'quit' to stop): ")
 
         if stock.lower() == 'quit':
-            return None
+            return 'quit'
 
         if not stock.isdigit():
             print("Error: Invalid input. Please enter a number.")
@@ -27,19 +31,15 @@ def generate_report(inventory, failed_entries):
     print("Final inventory:", inventory)
     print("Number of failed entries:", failed_entries)
 
-inventory = 0
-deliveries = 0 
-failed_entries = 0
-
 while True: 
     stock = get_valid_input() 
 
-    if stock is None: 
+    if stock == 'quit':
+        break
+
+    if stock is None:
         failed_entries += 1
         continue
-
-    if stock == quit:
-        break
 
     inventory = process_delivery(inventory, stock)
     tax = calculate_tax(stock)
