@@ -17,7 +17,6 @@ def get_valid_input():
 
         if stock < 0:
             print("Error: Stock quantity cannot be negative.")
-            failed_entries += 1
             return None, True
 
         return stock, False
