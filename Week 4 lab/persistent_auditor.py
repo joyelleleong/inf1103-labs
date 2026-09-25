@@ -1,4 +1,12 @@
-
+def load_inventory():
+    try:
+        with open("inventory.txt", "r") as file:
+            return int(file.read())
+    except FileNotFoundError:
+        return 0
+    except ValueError:
+        print("Error: Inventory file is corrupted. Starting with 0 inventory.")
+        return 0
 
 def get_valid_input():
     while True:
