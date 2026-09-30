@@ -81,5 +81,6 @@ while True:
         break 
 
 save_inventory(inventory, transaction_history)
+print("Inventory saved successfully to inventory.txt.")
 generate_report(inventory, deliveries, failed_entries) 
 
