@@ -1,12 +1,22 @@
 def load_inventory():
     try:
         with open("inventory.txt", "r") as file:
-            return int(file.read())
+            lines = file.readlines()
+            total = int(lines[0].strip())
+            history = [int(line.strip()) for line in lines[1:]]
+            return total, history
     except FileNotFoundError:
-        return 0
+        return 0, []
     except ValueError:
         print("Error: Inventory file is corrupted. Starting with 0 inventory.")
-        return 0
+        return 0, []
+
+def save_inventory(total, history):
+    with open("inventory.txt", "w") as file:
+        file.write(str(total) + "\n")
+
+        for transaction in history:
+            file.write(str(transaction) + "\n")
 
 def get_valid_input():
     while True:
@@ -38,6 +48,13 @@ def generate_report(inventory, deliveries, failed_entries):
     print("Number of deliveries:", deliveries)
     print("Number of failed entries:", failed_entries)
 
+inventory, transaction_history = load_inventory()
+failed_entries = 0
+deliveries = 0
+
+print("Previous inventory:", inventory)
+print("Previous transactions:", transaction_history)
+
 while True: 
     stock , failed = get_valid_input() 
 
@@ -52,6 +69,8 @@ while True:
     tax = calculate_tax(stock)
     deliveries += 1
 
+    transaction_history.append(stock)
+
     print("Stock accepted")
     print("Current inventory:", inventory)
     print ("Tax for this delivery:", tax)
@@ -61,5 +80,6 @@ while True:
         print("ALERT: Overstock! Inventory exceeds 500 units.")
         break 
 
+save_inventory(inventory, transaction_history)
 generate_report(inventory, deliveries, failed_entries) 
 
