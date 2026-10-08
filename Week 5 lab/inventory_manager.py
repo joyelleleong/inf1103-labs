@@ -49,3 +49,41 @@ def save_inventory():
         json.dump(inventory, file, indent=4)
         print("Inventory saved successfully to inventory.json.")
 
+# display all products in the inventory
+def display_all():
+    print("\nCurrent Inventory:")
+    print("-" * 60)
+
+    if len(inventory) == 0:
+        print("No products in the inventory.")
+        return
+
+    for product_id, product in inventory.items():
+        print(
+            f"ID: {product_id} |"
+            f"Name: {product['name']} |"
+            f"Price: ${product['price']:.2f} |"
+            f"Stock: {product['stock']} |" 
+        )
+    print("-" * 60)
+
+# add a new product to the inventory
+def add_product():
+    print ("\nAdd New Product")
+
+    product_id = input("Enter Product ID: ")
+    if product_id in inventory:
+        print("Product already exists.")
+        return
+
+    product_name = input("Product Name: ")
+    price = float(input("Price: "))
+    stock = int(input("Stock Quantity: "))
+
+    inventory[product_id] = {
+        "name": product_name,
+        "price": price,
+        "stock": stock
+    }
+
+    print("Product added successfully.")
