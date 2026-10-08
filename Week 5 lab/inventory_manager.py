@@ -28,3 +28,18 @@ inventory = {
         "stock": 25
     }
 }
+
+#load inventory from file
+def load_inveontry():
+    global inventory
+    if os.path.exists("inventory.json"):
+        print("inventory.json found.")
+
+        with open("inventory.json", "r") as file:
+            inventory = json.load(file)
+            print("Inventory loaded successfully.")
+    else:
+        print("No existing inventory found.")
+        print("Starting with an empty inventory.")
+        inventory = {}
+
