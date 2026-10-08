@@ -87,3 +87,35 @@ def add_product():
     }
 
     print("Product added successfully.")
+
+# update stock of an existing product
+def update_stock():
+    print("\nUpdate Stock")
+
+    product_id = input("Enter Product ID:")
+
+    if product_id in inventory:
+        print("Product found.")
+        print("Name:", inventory[product_id]["name"])
+        print("Current Stock:", inventory[product_id]["stock"])
+        new_stock = int(input("Enter new stock quantity: "))
+        inventory[product_id]["stock"] = new_stock
+        print("Stock updated successfully.")
+    else:
+        print("Product not found.")
+
+#search product
+def search_product():
+    print("\nSearch Product")
+
+    product_id = input("Enter Product ID: ")
+
+    if product_id in inventory:
+        product = inventory[product_id]
+        print("Product found:")
+        print("ID:", product_id)
+        print("Name:", product["name"])
+        print(f"Price: ${product['price']:.2f}")
+        print("Stock:", product["stock"])
+    else:
+        print("Product not found.")
