@@ -43,3 +43,9 @@ def load_inveontry():
         print("Starting with an empty inventory.")
         inventory = {}
 
+#save inventory to file
+def save_inventory():
+    with open("inventory.json", "w") as file:
+        json.dump(inventory, file, indent=4)
+        print("Inventory saved successfully to inventory.json.")
+
