@@ -1,0 +1,22 @@
+{
+    "1": {
+        "name": "computer",
+        "price": 20.0,
+        "stock": 55
+    },
+    "2": {
+        "name": "phone",
+        "price": 100.0,
+        "stock": 20
+    },
+    "3": {
+        "name": "washing machine",
+        "price": 20.0,
+        "stock": 1
+    },
+    "4": {
+        "name": "iphone 18",
+        "price": 1000.0,
+        "stock": 3
+    }
+}
