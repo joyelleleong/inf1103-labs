@@ -87,3 +87,40 @@ class Inventory:
 
     def get_all_products(self):
         return self.products
+
+# load inventory from JSON file 
+inventory = Inventory()
+
+def load_inventory():
+    if os.path.exists("inventory.json"):
+        print("inventory.json found.")
+
+        try:
+            with open("inventory.json", "r") as file:
+                data = json.load(file)
+
+                for product_id, product_data in data.items():
+                    product = Product(
+                        product_id,
+                        product_data["name"],
+                        float(product_data["price"]),
+                        int(product_data["stock"])
+                    )
+                    inventory.add_product(product)
+            print("Inventory loaded successfully.")
+        except (json.JSONDecodeError, KeyError, ValueError, TypeError):
+            print("Error loading inventory file.")
+    else:
+        print("inventory.json not found.)" \
+        "Starting with an empty inventory.")
+
+def save_inventory():
+    data = {}
+
+    for product_id, product in inventory.get_all_products().items():
+        data[product_id] = product.to_dict()
+
+    with open("inventory.json", "w") as file:
+        json.dump(data, file, indent=4)
+
+    print("Inventory saved successfully to inventory.json   .")
