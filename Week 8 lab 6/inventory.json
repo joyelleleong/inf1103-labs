@@ -2,7 +2,7 @@
     "1": {
         "name": "computer",
         "price": 20.0,
-        "stock": 55
+        "stock": 44
     },
     "2": {
         "name": "phone",
@@ -12,11 +12,21 @@
     "3": {
         "name": "washing machine",
         "price": 20.0,
-        "stock": 1
+        "stock": 2
     },
     "4": {
         "name": "iphone 18",
         "price": 1000.0,
+        "stock": 3
+    },
+    "5": {
+        "name": "macbook",
+        "price": 1500.0,
+        "stock": 2
+    },
+    "6": {
+        "name": "fan",
+        "price": 80.0,
         "stock": 3
     }
 }
