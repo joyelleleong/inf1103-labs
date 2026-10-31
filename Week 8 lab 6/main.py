@@ -123,4 +123,74 @@ def save_inventory():
     with open("inventory.json", "w") as file:
         json.dump(data, file, indent=4)
 
-    print("Inventory saved successfully to inventory.json   .")
+    print("Inventory saved successfully to inventory.json.")
+
+# function to display the main menu
+def display_all():
+    inventory.display_all()
+
+def add_product():
+    print("\nAdd New Product")
+
+    product_id = input("Enter product ID: ")
+
+    if inventory.search_product(product_id) is not None:
+        print("Product ID already exists. Please use a unique ID.")
+        return
+
+    product_name = input("Enter product name: ")
+    try:
+        price = float(input("Enter product price: "))
+        stock = int(input("Enter product stock: "))
+
+        if price < 0 or stock < 0:
+            print("Price and stock cannot be negative.")
+            return
+
+        product = Product(product_id, product_name, price, stock)
+        inventory.add_product(product)
+
+        product = Product(product_id, product_name, price, stock)
+
+        inventory.add_product(product)
+
+    except ValueError:
+        print("Please enter valid numbers for price and stock.")
+        return
+
+def update_stock():
+    print("\nUpdate Product Stock")
+
+    product_id = input("Enter product ID: ")
+    product = inventory.search_product(product_id)
+
+    if product is not None:
+        print("Product found.")
+        print("Name:" , product.get_name())
+        print("Current Stock:", product.get_stock())
+
+        try:
+            new_stock = int(input("Enter new stock quantity: "))
+
+            if new_stock < 0:
+                print("Stock cannot be negative.")
+                return
+
+            product.update_stock(new_stock)
+        except ValueError:
+            print("Please enter a valid number for stock.")
+
+    else:
+        print("Product not found.")
+
+def search_product():
+    print("\nSearch Product")
+
+    product_id = input("Enter product ID: ")
+    product = inventory.search_product(product_id)
+
+    if product is not None:
+        print("Product found.")
+        product.display_information()
+    else:
+        print("Product not found.")
