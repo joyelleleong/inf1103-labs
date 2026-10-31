@@ -20,16 +20,16 @@ class Product:
         self.__stock = stock
 
     def get_product_id(self):
-        return self.product_id
+        return self.__product_id
 
     def get_name(self):
-        return self.name
+        return self.__name
 
     def get_price(self):
-        return self.price
+        return self.__price
 
     def get_stock(self):
-        return self.stock
+        return self.__stock
 
     def update_stock(self, new_stock):
         if new_stock < 0:
@@ -106,12 +106,12 @@ def load_inventory():
                         float(product_data["price"]),
                         int(product_data["stock"])
                     )
-                    inventory.add_product(product)
+                    inventory.products[product_id] = product
             print("Inventory loaded successfully.")
         except (json.JSONDecodeError, KeyError, ValueError, TypeError):
             print("Error loading inventory file.")
     else:
-        print("inventory.json not found.)" \
+        print("inventory.json not found." \
         "Starting with an empty inventory.")
 
 def save_inventory():
@@ -129,6 +129,7 @@ def save_inventory():
 def display_all():
     inventory.display_all()
 
+
 def add_product():
     print("\nAdd New Product")
 
@@ -139,6 +140,7 @@ def add_product():
         return
 
     product_name = input("Enter product name: ")
+
     try:
         price = float(input("Enter product price: "))
         stock = int(input("Enter product stock: "))
@@ -150,13 +152,9 @@ def add_product():
         product = Product(product_id, product_name, price, stock)
         inventory.add_product(product)
 
-        product = Product(product_id, product_name, price, stock)
-
-        inventory.add_product(product)
-
     except ValueError:
         print("Please enter valid numbers for price and stock.")
-        return
+
 
 def update_stock():
     print("\nUpdate Product Stock")
