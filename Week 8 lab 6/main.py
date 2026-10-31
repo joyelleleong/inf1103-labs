@@ -194,3 +194,40 @@ def search_product():
         product.display_information()
     else:
         print("Product not found.")
+
+# main function to run the program
+def main():
+    load_inventory()
+
+    while True:
+        print("\nInventory Management System")
+        print("1. Display All Products")
+        print("2. Add New Product")
+        print("3. Update Product Stock")
+        print("4. Search Product")
+        print("5. Save Inventory")
+        print("6. Exit")
+
+        choice = input("Enter option: ")
+
+        if choice == "1":
+            display_all()
+        elif choice == "2":
+            add_product()
+        elif choice == "3":
+            update_stock()
+        elif choice == "4":
+            search_product()
+        elif choice == "5":
+            save_inventory()
+        elif choice == "6":
+            print("Saving inventory before exiting...")
+            save_inventory()
+            print("Thank you for using the Inventory Management System.")
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
