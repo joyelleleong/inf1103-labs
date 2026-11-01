@@ -143,3 +143,44 @@ class Inventory:
 
     def get_all_products(self):
         return self.__products.values()
+
+# global inventory
+inventory = Inventory()
+
+def load_inventory():
+    if os.path.exists("inventory.json"):
+        print("inventory.json found.")
+
+        try:
+            with open("inventory.json", "r") as file:
+                data = json.load(file)
+
+                for product_id, product_data in data.items():
+                    product_type = product_data["type"]
+                    if product_type == "physical":
+                        product = PhysicalProduct(
+                            product_id,
+                            product_data["name"],
+                            float(product_data["price"]),
+                            int(product_data["stock"]),
+                            float(product_data["weight"])
+                        )
+                    elif product_type == "digital":
+                        product = DigitalProduct(
+                            product_id,
+                            product_data["name"],
+                            float(product_data["price"]),
+                            int(product_data["stock"]),
+                            float(product_data["download_size"])
+                        )
+                    else:
+                        print(f"Unknown product type for product ID {product_id}.")
+                        continue
+                    inventory.products[product_id] = product
+
+            print("Inventory loaded successfully.")
+
+        except (json.JSONDecodeError, KeyError, ValueError, TypeError):
+            print("Error loading inventory file.")
+    else:
+        print("inventory.json not found. Starting with an empty inventory.")
