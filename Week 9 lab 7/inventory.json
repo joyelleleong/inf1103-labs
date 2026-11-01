@@ -30,5 +30,13 @@
         "price": 20.0,
         "stock": 2,
         "download_size": 100.0
+    },
+    "5": {
+        "type": "digital",
+        "product_id": "5",
+        "name": "thumbdrive",
+        "price": 20.0,
+        "stock": 6,
+        "download_size": 100.0
     }
 }
