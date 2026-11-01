@@ -1,0 +1,34 @@
+{
+    "1": {
+        "type": "physical",
+        "product_id": "1",
+        "name": "laptop",
+        "price": 2200.0,
+        "stock": 90,
+        "weight": 1.5
+    },
+    "2": {
+        "type": "physical",
+        "product_id": "2",
+        "name": "phone",
+        "price": 1799.0,
+        "stock": 77,
+        "weight": 0.8
+    },
+    "3": {
+        "type": "digital",
+        "product_id": "3",
+        "name": "laptop",
+        "price": 3000.0,
+        "stock": 4,
+        "download_size": 200.0
+    },
+    "4": {
+        "type": "digital",
+        "product_id": "4",
+        "name": "canva template",
+        "price": 20.0,
+        "stock": 2,
+        "download_size": 100.0
+    }
+}
