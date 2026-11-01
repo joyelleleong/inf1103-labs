@@ -92,6 +92,7 @@ class DigitalProduct(Product):
     def display_information(self):
         super().display_information()
         print(f"Download Size: {self.__download_size} MB")
+        print("-" * 40)
 
     def get_fulfulment_info(self):
         return "This product is a delivered digitally."
@@ -119,14 +120,13 @@ class Inventory:
             print("Product ID already exists. Please use a unique ID.")
         else:
             self.__products[product_id] = product
-            print("Product added successfully.")
 
     def search_product(self, product_id):
         return self.__products.get(product_id, None)
 
     def display_all(self):
         print ("\nCurrent Inventory")
-        print ("-" * 60)
+        print ("-" * 40)
 
         if len(self.__products) == 0:
             print("No products in inventory.")
@@ -138,11 +138,10 @@ class Inventory:
 
             if isinstance(product, CanBeShipped):
                 print(f"Shipping Cost: ${product.calculate_shipping_cost():.2f}")
-
-        print("-" * 60) 
+                print("-" * 40)
 
     def get_all_products(self):
-        return self.__products.values()
+        return self.__products
 
 # global inventory
 inventory = Inventory()
@@ -176,7 +175,7 @@ def load_inventory():
                     else:
                         print(f"Unknown product type for product ID {product_id}.")
                         continue
-                    inventory.products[product_id] = product
+                    inventory.add_product(product)
 
             print("Inventory loaded successfully.")
 
@@ -190,7 +189,7 @@ def save_inventory():
     data = {}
 
     for product_id, product in inventory.get_all_products().items():
-        data[product_id()] = product.to_dict()
+        data[product_id] = product.to_dict()
 
     with open("inventory.json", "w") as file:
         json.dump(data, file, indent=4)
@@ -253,7 +252,6 @@ def update_stock():
         print("Product found.")
         print("Product Name:" , product.get_name())
         print("Current Stock:", product.get_stock())
-        return
 
     try:
         new_stock = int(input("Enter new stock quantity: "))
