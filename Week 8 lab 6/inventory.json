@@ -27,6 +27,11 @@
     "6": {
         "name": "fan",
         "price": 80.0,
-        "stock": 3
+        "stock": 5
+    },
+    "7": {
+        "name": "rice cooker",
+        "price": 56.0,
+        "stock": 23
     }
 }
