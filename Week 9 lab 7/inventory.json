@@ -38,5 +38,13 @@
         "price": 20.0,
         "stock": 6,
         "download_size": 100.0
+    },
+    "6": {
+        "type": "physical",
+        "product_id": "6",
+        "name": "paper ",
+        "price": 0.2,
+        "stock": 2000,
+        "weight": 0.3
     }
 }
