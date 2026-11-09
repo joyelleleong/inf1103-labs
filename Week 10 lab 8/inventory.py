@@ -1,35 +1,44 @@
-from canbeshipped import CanBeShipped
+from product import Product
+
 
 class Inventory:
     def __init__(self):
-        self.__products = {}
+        self.products: list[Product] = []
 
-    def add_product(self, product):
-        product_id = product.get_product_id()
-
-        if product_id in self.__products:
-            print("Product ID already exists. Please use a unique ID.")
+    def add_product(self, product: Product) -> None:
+        if self.find_product(product.get_product_id()) is not None:
+            print("Product ID already exists.")
         else:
-            self.__products[product_id] = product
+            self.products.append(product)
+            print("Product added successfully.")
 
-    def search_product(self, product_id):
-        return self.__products.get(product_id, None)
+    def remove_product(self, product_id: str) -> None:
+        product = self.find_product(product_id)
 
-    def display_all(self):
-        print ("\nCurrent Inventory")
-        print ("-" * 40)
+        if product is not None:
+            self.products.remove(product)
+            print("Product removed successfully.")
+        else:
+            print("Product not found.")
 
-        if len(self.__products) == 0:
+    def find_product(self, product_id: str) -> Product | None:
+        for product in self.products:
+            if product.get_product_id() == product_id:
+                return product
+
+        return None
+
+    def display_all(self) -> None:
+        print("\nCurrent Inventory")
+        print("-" * 40)
+
+        if len(self.products) == 0:
             print("No products in inventory.")
             return
 
-        for product in self.__products.values():
+        for product in self.products:
             product.display_information()
             print(product.get_fulfulment_info())
 
-            if isinstance(product, CanBeShipped):
-                print(f"Shipping Cost: ${product.calculate_shipping_cost():.2f}")
-                print("-" * 40)
-
-    def get_all_products(self):
-        return self.__products
+    def get_all_products(self) -> list[Product]:
+        return self.products
