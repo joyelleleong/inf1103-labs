@@ -7,6 +7,7 @@ from supplier import Supplier
 from inventory import Inventory
 from canbeshipped import CanBeShipped
 from order import Order
+from product import Product
 
 # Global inventory
 inventory = Inventory()
@@ -326,9 +327,11 @@ def test_relationships() -> None:
 
     print("\n4. POLYMORPHISM AND LSP")
 
-    products = [laptop, template]
+    products: list[Product] = [laptop, template]
 
     for product in products:
+
+        print("\nProduct Type:", type(product).__name__)
 
         product.display_information()
 
@@ -338,6 +341,7 @@ def test_relationships() -> None:
 
         # Both subclasses can use Product's method
         product.update_stock(20)
+
         print("-" * 40)
 
     print("\n========== TESTS COMPLETED ==========")
