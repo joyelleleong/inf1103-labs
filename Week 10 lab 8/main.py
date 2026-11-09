@@ -338,6 +338,7 @@ def test_relationships() -> None:
 
         # Both subclasses can use Product's method
         product.update_stock(20)
+        print("-" * 40)
 
     print("\n========== TESTS COMPLETED ==========")
 
@@ -384,6 +385,9 @@ def main() -> None:
             print("Thank you for using the Inventory Management System.")
             print("Exiting the program.")
             break
+
+        elif choice == "7": 
+            test_relationships()
 
         else:
             print("Invalid choice. Please try again.")
