@@ -10,7 +10,6 @@ class Inventory:
             print("Product ID already exists.")
         else:
             self.products.append(product)
-            print("Product added successfully.")
 
     def remove_product(self, product_id: str) -> None:
         product = self.find_product(product_id)
@@ -39,6 +38,7 @@ class Inventory:
         for product in self.products:
             product.display_information()
             print(product.get_fulfulment_info())
+            print("-" * 40)
 
     def get_all_products(self) -> list[Product]:
         return self.products
