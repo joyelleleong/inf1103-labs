@@ -8,6 +8,7 @@ from inventory import Inventory
 from canbeshipped import CanBeShipped
 from order import Order
 from product import Product
+from product_factory import ProductFactory
 
 # Global inventory
 inventory = Inventory()
@@ -46,29 +47,29 @@ def load_inventory() -> None:
                     product_type = product_data["type"]
 
                     if product_type == "physical":
-
-                        product = PhysicalProduct(
+                        product = ProductFactory.create(
+                            product_type,
                             product_id,
                             product_data["name"],
                             float(product_data["price"]),
                             int(product_data["stock"]),
-                            float(product_data["weight"]),
-                            supplier
+                            supplier,
+                            weight=float(product_data["weight"])
                         )
 
                     elif product_type == "digital":
-
-                        product = DigitalProduct(
+                        product = ProductFactory.create(
+                            product_type,
                             product_id,
                             product_data["name"],
                             float(product_data["price"]),
                             int(product_data["stock"]),
-                            float(product_data["download_size"]),
-                            supplier
+                            supplier,
+                            download_size=float(product_data["download_size"])
                         )
 
                     else:
-                        print(f"Unknown product type: {product_id}")
+                        print(f"Unknown product type: {product_type}")
                         continue
 
                     inventory.add_product(product)
@@ -152,13 +153,14 @@ def add_product() -> None:
                 print("Weight cannot be negative.")
                 return
 
-            product = PhysicalProduct(
+            product = ProductFactory.create(
+                "physical",
                 product_id,
                 product_name,
                 price,
                 stock,
-                weight,
-                supplier
+                supplier,
+                weight=weight
             )
 
         elif product_type == "2":
@@ -171,13 +173,14 @@ def add_product() -> None:
                 print("Download size cannot be negative.")
                 return
 
-            product = DigitalProduct(
+            product = ProductFactory.create(
+                "digital",
                 product_id,
                 product_name,
                 price,
                 stock,
-                download_size,
-                supplier
+                supplier,
+                download_size=download_size
             )
 
         else:
