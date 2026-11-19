@@ -101,6 +101,24 @@ def save_inventory() -> None:
 
     print("Inventory saved successfully.")
 
+# ==========================================
+# POSITIVE FLOAT INPUT
+# ==========================================
+
+def get_positive_float(prompt: str) -> float:
+    while True:
+        try:
+            value = float(input(prompt))
+
+            if value <= 0:
+                print("Value must be greater than zero.")
+                continue
+
+            return value
+
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
 
 # ==========================================
 # ADD PRODUCT
@@ -119,10 +137,10 @@ def add_product() -> None:
     product_name = input("Enter product name: ")
 
     try:
-        price = float(input("Enter product price: "))
+        price = get_positive_float("Enter product price: ")
         stock = int(input("Enter product stock: "))
 
-        if price < 0 or stock < 0:
+        if stock < 0:
             print("Price and stock cannot be negative.")
             return
 
