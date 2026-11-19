@@ -1,5 +1,6 @@
 import json
 import os
+import csv 
 
 from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
@@ -100,6 +101,84 @@ def save_inventory() -> None:
         json.dump(data, file, indent=4)
 
     print("Inventory saved successfully.")
+
+# ==========================================
+# LOAD PRODUCTS FROM CSV
+# ==========================================
+
+def load_products(path: str, inventory: Inventory, supplier: Supplier) -> None:
+    loaded = 0
+
+    try:
+        file = open(path, newline="")
+
+    except FileNotFoundError:
+        print(f"Products file not found: {path}")
+
+    else:
+        with file:
+            reader = csv.reader(file)
+
+            # Skip the header row
+            next(reader, None)
+
+            for row in reader:
+                try:
+                    if len(row) != 5:
+                        raise ValueError(
+                            "Invalid number of columns."
+                        )
+
+                    product_type = row[0]
+                    product_id = row[1]
+                    name = row[2]
+                    price = float(row[3])
+                    stock_quantity = int(row[4])
+
+                    # Create product through ProductFactory
+                    if product_type == "physical":
+                        product = ProductFactory.create(
+                            product_type,
+                            product_id,
+                            name,
+                            price,
+                            stock_quantity,
+                            supplier,
+                            weight=1.0
+                        )
+
+                    elif product_type == "digital":
+                        product = ProductFactory.create(
+                            product_type,
+                            product_id,
+                            name,
+                            price,
+                            stock_quantity,
+                            supplier,
+                            download_size=1.0
+                        )
+
+                    else:
+                        product = ProductFactory.create(
+                            product_type,
+                            product_id,
+                            name,
+                            price,
+                            stock_quantity,
+                            supplier
+                        )
+
+                    inventory.add_product(product)
+                    loaded += 1
+
+                except ValueError as error:
+                    print(f"Invalid row skipped: {row}")
+                    print(error)
+
+        print(f"{loaded} products loaded.")
+
+    finally:
+        print("Load attempt finished.")
 
 # ==========================================
 # POSITIVE FLOAT INPUT
