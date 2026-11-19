@@ -168,8 +168,8 @@ def load_products(path: str, inventory: Inventory, supplier: Supplier) -> None:
                             supplier
                         )
 
-                    inventory.add_product(product)
-                    loaded += 1
+                    if inventory.add_product(product): 
+                        loaded += 1
 
                 except ValueError as error:
                     print(f"Invalid row skipped: {row}")

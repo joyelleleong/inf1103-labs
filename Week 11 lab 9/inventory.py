@@ -5,11 +5,13 @@ class Inventory:
     def __init__(self):
         self.products: list[Product] = []
 
-    def add_product(self, product: Product) -> None:
+    def add_product(self, product: Product) -> bool:
         if self.find_product(product.get_product_id()) is not None:
             print("Product ID already exists.")
-        else:
-            self.products.append(product)
+            return False
+
+        self.products.append(product)
+        return True
 
     def remove_product(self, product_id: str) -> None:
         product = self.find_product(product_id)
