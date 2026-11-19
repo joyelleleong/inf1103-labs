@@ -1,3 +1,4 @@
+
 from abc import ABC, abstractmethod
 from supplier import Supplier
 
@@ -6,6 +7,13 @@ class Product(ABC):
     def __init__(self, product_id: int, name: str,
                  price: float, stock: int,
                  supplier: Supplier):
+
+        # Validate price and stock
+        if price <= 0:
+            raise ValueError("Price must be greater than zero.")
+
+        if stock < 0:
+            raise ValueError("Stock cannot be negative.")
 
         self.__product_id = product_id
         self.__name = name
